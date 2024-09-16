@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Detail</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .details {
+            margin-bottom: 30px;
+        }
+        .details p {
+            font-size: 16px;
+            margin: 10px 0;
+            line-height: 1.5;
+        }
+        .details strong {
+            color: #555;
+        }
+        .actions {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .actions a,
+        .actions button {
+            text-decoration: none;
+            color: #fff;
+            background-color: #007bff;
+            padding: 10px 20px;
+            border-radius: 4px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+            margin: 5px;
+        }
+        .actions a {
+            background-color: #28a745;
+        }
+        .actions button {
+            background-color: #dc3545;
+        }
+        .actions a:hover,
+        .actions button:hover {
+            opacity: 0.8;
+        }
+        .back-link {
+            display: block;
+            margin-top: 20px;
+            text-align: center;
+            color: #007bff;
+            font-size: 16px;
+            text-decoration: none;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>{{ student.name }}</h1>
+        <div class="details">
+            <p><strong>Student ID:</strong> {{ student.student_id }}</p>
+            <p><strong>Father's Name:</strong> {{ student.father_name|default_if_none:'N/A' }}</p>
+            <p><strong>Class:</strong> {{ student.which_class }}</p>
+            <p><strong>Age:</strong> {{ student.age }}</p>
+            <p><strong>Contact:</strong> {{ student.contact }}</p>
+        </div>
+        <div class="actions">
+            <a href="{% url 'edit_student' student.student_id %}">Edit</a>
+            <form action="{% url 'delete_student' student.student_id %}" method="post" style="display: inline;">
+                {% csrf_token %}
+                <button type="submit">Delete</button>
+            </form>
+        </div>
+        <a href="{% url 'student_list' %}" class="back-link">Back to List</a>
+    </div>
+</body>
+</html>

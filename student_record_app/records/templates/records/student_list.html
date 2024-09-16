@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        li:last-child {
+            border-bottom: none;
+        }
+        a {
+            text-decoration: none;
+            color: #007bff;
+            font-weight: bold;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .no-id {
+            color: #888;
+        }
+        .add-student {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+        }
+        .add-student a {
+            text-decoration: none;
+            color: #fff;
+            background-color: #28a745;
+            padding: 10px 20px;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        .add-student a:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Student List</h1>
+        <ul>
+            {% for student in students %}
+                <li>
+                    {% if student.student_id %}
+                        <a href="{% url 'student_detail' student.student_id %}">{{ student.name }}</a>
+                    {% else %}
+                        {{ student.name }} <span class="no-id">(No ID)</span>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+        <div class="add-student">
+            <a href="{% url 'create_student' %}">Add New Student</a>
+        </div>
+    </div>
+</body>
+</html>
